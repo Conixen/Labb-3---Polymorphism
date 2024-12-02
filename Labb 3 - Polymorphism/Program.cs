@@ -10,7 +10,10 @@ namespace Labb_3___Polymorphism
     internal class Program
     {
         static void Main(string[] args)                     // Leon Johansson SUT24
-        {
+        {                                  // Uppdate: This code is primary using dynamic polymofism with ex. as the override metod of Area(), 
+                                           // teh list contains all diffrent shapes and gets the area metod based on the shape that is called upon but overshadowed by the baseclass Geometry
+                                           // All shapes is treated as a objeckt in Geometry / the baseclass
+                                           // Console.WriteLine($"{ g.GetType().Name} har arean: {g.Area() }"); / akn användas i listan
             Console.WriteLine("Hello World!");
             // Instances of diffrent shapes
             Geometry circle = new Circle(4);
@@ -18,28 +21,36 @@ namespace Labb_3___Polymorphism
             Geometry rectangle = new Rectangle(2, 8);
             Geometry triangel = new Triangle(7, 9);
             // List that contains the diffrent Geometry types
-            List<Geometry> list = new List<Geometry> { circle, square, rectangle, triangel};
+            List<Geometry> list = new List<Geometry> { circle, square, rectangle, triangel };
 
             foreach (Geometry g in list) // Looping through each shape in the list and thier own Area methohd
             {
                 Console.WriteLine("");
-                // Console.WriteLine($"{ g.GetType().Name} har arean: {g.Area() }");
-                if (g == circle) 
+                // Console.WriteLine($"{ g.GetType().Name} har arean: {g.Area() }"); can use this asweall
+                if (g == circle)
                 {
                     Console.WriteLine($"En cirkel med radeien 4 är: {g.Area()}");
                 }
-                else if (g == square) 
+                else if (g == square)
                 {
                     Console.WriteLine($"En fyrkant med sidorna 7 är: {g.Area()}");
                 }
-                else if (g == rectangle) 
+                else if (g == rectangle)
                 {
                     Console.WriteLine($"En rektangel med höjden 2 och bredden 8 är: {g.Area()}");
                 }
-                else if (g == triangel) 
+                else if (g == triangel)
                 {
                     Console.WriteLine($"En triangel med höjden 7 och bredden 9 är: {g.Area()}");
                 }
+
+                // static polymorfism
+                // Geometry geo = new Geometry
+                // double circleArea = geo.Area(4)
+                // Console.WriteLine($"Circle area (radius 4): {circleArea}");
+                // double rectangleArea = calculator.CalculateArea(2, 8);
+                // Console.WriteLine($"rectangle area (height 2, base 8): {rectangleArea}");
+
             }
             // Meny if the user wanna try for themself
             Console.WriteLine("\nVill du testa själv? välj en av de 4 formerna som du vill se deras area: " +
@@ -58,7 +69,7 @@ namespace Labb_3___Polymorphism
                         Console.WriteLine("Skriv in radien på cirklen:");
                         double userRadius = Convert.ToDouble(Console.ReadLine());
                         Geometry userCircle = new Circle(userRadius);
-                        Console.WriteLine($"{userCircle.Area()}");
+                        Console.WriteLine($"{userCircle.Area()}");                     
                         Console.ReadKey();
                         Console.WriteLine("Tack för mig ha en bra dag");
                         Console.ReadKey();
@@ -109,6 +120,18 @@ namespace Labb_3___Polymorphism
             }
         }
     } 
+    /*static polymorfism ex.
+    public class Geometry
+    {
+        public double Area()   //  for Area specific for a circle
+        {
+            return Radius * Radius * Math.PI;
+        }
+        public  double Area() // for Area specific for a rectangle
+        {
+            return Height * Width;
+        }
+    }*/
     public abstract class Geometry  // Geometyr abstract class 
     {
         public abstract double Area();  // Abstarct method for calculating area for the subclasses
